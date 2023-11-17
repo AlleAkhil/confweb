@@ -1,0 +1,104 @@
+@charset "UTF-8";
+:root {
+  --greenColor:	hsl(99, 34%, 25%);
+  --PrimaryColor: hsl(359, 36%, 57%);
+  --HoverColor: hsl(359, 33%, 50%);
+  --whiteColor: hsl(0, 0%, 100%);
+  --blackColor: hsl(0, 0%, 18%);
+  --textColor: hsl(240, 1%, 48%);
+  --whiteColorDeam: hsl(0, 0%, 93%);
+  --greyBg: hsl(0, 0%, 96%);
+  --greyText: rgb(190, 190, 190);
+  --inputColor: hsl(338, 12%, 97%);
+  --box-shadow: 0 2px 8px 2px rgba(178,178,178,0.334);
+}
+
+.popular {
+  padding-top: 2rem;
+}
+.popular .secContainer {
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.popular .secContainer .textDiv .secTitle {
+  color: var(--blackColor);
+  line-height: 1.5rem;
+  padding-bottom: 0.5rem;
+}
+.popular .secContainer .textDiv p {
+  font-size: 13px;
+  color: var(--textColor);
+  font-weight: 500;
+}
+.popular .secContainer .mainContent {
+  padding: 2rem 0;
+  gap: 1rem;
+}
+.popular .secContainer .mainContent .speakers {
+  padding: 2rem;
+  overflow: hidden;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px 2px rgba(178, 178, 178, 0.45);
+}
+.popular .secContainer .mainContent .speakers .spFooter {
+  padding: 1rem;
+}
+.popular .secContainer .mainContent .speakers .spFooter .spText {
+  justify-content: space-between;
+}
+.popular .secContainer .mainContent .speakers .spFooter .spText .flex {
+  font-size: 20px;
+  font-weight: 600;
+  align-items: flex-start;
+  transform: translateY(5px);
+}
+.popular .secContainer .mainContent .speakers .spFooter .spText .flex .icon {
+  color: var(--PrimaryColor);
+}
+.popular .secContainer .mainContent .speakers:hover .overlayInfo {
+  overflow: visible;
+  padding: 1rem 1.5rem;
+  height: 100%;
+}
+
+@media screen and (min-width: 480px) {
+  .popular {
+    padding-top: 13.5rem;
+  }
+}
+@media screen and (min-width: 556px) {
+  .popular .secContainer .secHeader {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .popular .secContainer .secHeader .textDiv {
+    text-align: start;
+    max-width: 70%;
+  }
+  .popular .secContainer .secHeader .iconsDiv {
+    justify-content: flex-end;
+  }
+}
+@media screen and (min-width: 720px) {
+  .popular {
+    padding-top: 2rem;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .popular {
+    padding-top: 2rem;
+  }
+  .popular .secContainer .secHeader .textDiv .secTitle {
+    font-size: 2.2rem;
+  }
+  .popular .secContainer .secHeader .textDiv p {
+    font-size: 15px;
+  }
+  .popular .secContainer .mainContent {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem !important;
+  }
+}/*# sourceMappingURL=counter.css.map */

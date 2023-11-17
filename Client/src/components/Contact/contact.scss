@@ -1,0 +1,77 @@
+.contact{
+    .secContainer{
+        .title{
+            color:var(--blackColor);
+            line-height:1.5rem;
+            margin-top: 1rem;
+            padding-bottom: 2rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .mainContent{
+            gap: 1rem;
+            .singleItem{
+                text-align: center;
+
+                img{
+                    background: rgba(247,144,54,0.265);
+                    width: 100px;
+                    border-radius: 50%;
+                    padding: 1rem;
+                }
+
+                h3{
+                    font-weight: 700;
+                    color: var(--blackColor);
+                    padding: .5rem;
+                }
+
+                p{
+                    font-size: 13px;
+                    font-weight: 500;
+                    padding-bottom: .5rem;
+                    color: var(--textColor);
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width:720px) {
+    .contact{
+        .secContainer{
+            .cardContent{
+                gap: 4rem;
+                padding: 4rem 3rem;
+
+                .cardText{
+                    h2{
+                        font-size: 2rem;
+                    }
+
+                    p{
+                        opacity: .7;
+                        font-size: 15px;
+                    }
+                }
+            }
+
+            .cardContent{
+                grid-template-columns: repeat(2,1fr) !important;
+            }
+        }
+    }
+}
+
+@media screen and (min-width:1024px) {
+    .contact{
+        .secContainer{
+            .mainContent{
+                padding: 2.5rem 0;
+                grid-template-columns: repeat(2,1fr) !important;
+            }
+        }
+    }
+}

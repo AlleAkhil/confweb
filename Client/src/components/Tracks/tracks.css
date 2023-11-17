@@ -1,0 +1,61 @@
+.tracks .secContainer .title {
+  color: var(--blackColor);
+  line-height: 1.5rem;
+  margin-top: 1rem;
+  padding-bottom: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+}
+.tracks .secContainer .mainContent {
+  gap: 1rem;
+}
+.tracks .secContainer .mainContent .singleItem {
+  text-align: left;
+}
+.tracks .secContainer .mainContent .singleItem img {
+  background: rgba(247, 144, 54, 0.265);
+  width: 100px;
+  border-radius: 50%;
+  padding: 1rem;
+}
+.tracks .secContainer .mainContent .singleItem h3 {
+  font-weight: 700;
+  color: var(--blackColor);
+  padding: 0.5rem;
+}
+.tracks .secContainer .mainContent .singleItem p {
+  text-align: justify;
+  font-size: 15px;
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+  color: var(--textColor);
+}
+.tracks .secContainer .mainContent .singleItem li {
+  list-style: disc;
+  font-size: 15px;
+  font-weight: 600;
+  padding-bottom: 0.3rem;
+  color: var(--textColor);
+}
+
+@media screen and (min-width: 720px) {
+  .tracks .secContainer .videoCard .cardContent {
+    gap: 4rem;
+    padding: 4rem 3rem;
+  }
+  .tracks .secContainer .videoCard .cardContent .cardText h2 {
+    font-size: 2rem;
+  }
+  .tracks .secContainer .videoCard .cardContent .cardText p {
+    opacity: 0.7;
+    font-size: 15px;
+  }
+  .tracks .secContainer .videoCard .cardContent {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .tracks .secContainer .mainContent {
+    padding: 2.5rem 0;
+  }
+}/*# sourceMappingURL=tracks.css.map */
