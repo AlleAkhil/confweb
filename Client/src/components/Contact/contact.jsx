@@ -58,7 +58,7 @@ const Contact = () => {
       });
   
       if (response.ok) {
-        console.log('Form submitted successfully!');
+        alert('Details submitted successfully!');
         setFormData({ name: '', email: '', message: '' }); // Clear form fields on success
       } else {
         console.error('Failed to submit form');
