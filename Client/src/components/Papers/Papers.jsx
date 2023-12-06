@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
-import './papers.css';
 import img from '../../assets/imp.jpg'
 
 const Wrapper = styled.section`
@@ -51,39 +50,50 @@ const Wrapper = styled.section`
   }
 `;
 
-
 const Papers = () => {
-    const [selectedFile, setSelectedFile] = useState(null);
-    const handleFileChange = (e) => {
-       setSelectedFile(e.target.files[0]);
-    };
- 
-    const handleUpload = async () => {
-       if (!selectedFile) {
-          alert("Please first select a file");
-          return;
-       }
- 
-       const formData = new FormData();
-       formData.append("file", selectedFile);
- 
-       try {
-          // Replace this URL with your server-side endpoint for handling file uploads
-          const response = await fetch("", {
-             method: "POST",
-             body: formData
-          });
- 
-          if (response.ok) {
-             alert("File upload is  successfully");
-          } else {
-             alert("Failed to upload the file due to errors");
-          }
-       } catch (error) {
-          console.error("Error while uploading the file:", error);
-          alert("Error occurred while uploading the file");
-       }
-    };
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [description, setDescription] = useState('');
+
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
+  const handleUpload = async (e) => {
+    e.preventDefault();
+
+    if (!selectedFile || !title || !author || !description) {
+      alert("Please fill in all fields and select a file");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+    formData.append("title", title);
+    formData.append("author", author);
+    formData.append("description", description);
+
+    try {
+      const response = await fetch("http://localhost:9000/api/submit-paper", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        alert("File uploaded successfully");
+        setTitle('');
+        setAuthor('');
+        setDescription('');
+        setSelectedFile(null);
+      } else {
+        alert("Failed to upload the file");
+      }
+    } catch (error) {
+      console.error("Error occurred while uploading the file:", error);
+      alert("Error occurred while uploading the file");
+    }
+  };
 
   return (
     <section className='contact section' id='about'>
@@ -93,18 +103,20 @@ const Papers = () => {
           <div className='mainContent container grid'>
             <div className=''>
               <img src={img} 
-              style={{objectFit: 'cover',overflow:'hidden', borderRadius: "15%", height: "80vh" }}
+                style={{objectFit: 'cover', overflow:'hidden', borderRadius: "15%", height: "80vh" }}
               />
             </div>
-            <div data-aos='fade-left' data-aos-duration='2500' className='singleItem'>
+            <div className='singleItem'>
               <div className='container'>
                 <div className='contact-form'>
-                  <form action='' method='POST' className='contact-inputs'>
+                  <form className='contact-inputs' onSubmit={handleUpload}>
                     <input
                       type='text'
                       name='title'
                       placeholder='Title Name'
                       autoComplete='off'
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
                       required
                     />
                     <input
@@ -112,6 +124,8 @@ const Papers = () => {
                       name='author'
                       placeholder='Author name'
                       autoComplete='off'
+                      value={author}
+                      onChange={(e) => setAuthor(e.target.value)}
                       required
                     />
                     <textarea
@@ -120,11 +134,13 @@ const Papers = () => {
                       rows='6'
                       placeholder='Description'
                       autoComplete='off'
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
                       required
                     ></textarea>
                     <div style={{display: "flex"}}> 
-                    <input type="file" className="input" onChange={handleFileChange} />
-                    <button onClick={handleUpload}>Upload</button>
+                      <input type="file" className="input" onChange={handleFileChange} />
+                      <button type="submit">Upload</button>
                     </div>
                     <input type='submit' value='Send' name='submit' />
                   </form>
