@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Timeline from "@material-ui/lab/Timeline";
 import TimelineItem from "@material-ui/lab/TimelineItem";
@@ -22,104 +22,63 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: "6px 16px"
   },
+  completed: {
+    textDecoration: "line-through"
+  },
   secondaryTail: {
     backgroundColor: theme.palette.secondary.main
   }
 }));
 
 export default function Time() {
-  
-  useEffect(()=>{
-    Aos.init({duration: 2000})
+  const [deadlines, setDeadlines] = useState([
+    { date: new Date("2023-11-30"), label: "Paper Submission Deadline", completed: false },
+    { date: new Date("2023-11-30"), label: "Acceptance Notification", completed: false },
+    { date: new Date("2023-12-10"), label: "Registration Deadline", completed: false },
+    { date: new Date("2023-12-15"), label: "Conference Dates", completed: false }
+  ]);
+
+  useEffect(() => {
+    Aos.init({ duration: 2000 })
   }, [])
 
   const classes = useStyles();
 
+  // Check if the deadline has passed and update the completed status
+  useEffect(() => {
+    const today = new Date();
+    const updatedDeadlines = deadlines.map((deadline) => ({
+      ...deadline,
+      completed: deadline.date < today
+    }));
+    setDeadlines(updatedDeadlines);
+  }, []);
+
   return (
     <Timeline align="left">
-      <TimelineItem>
-        <TimelineOppositeContent> 
-          <Typography variant="body2" color="textSecondary">
-          Nov 30th, 2023
-          </Typography>
-        </TimelineOppositeContent>
-        <TimelineSeparator>
-          <TimelineDot>
-            <CalendarTodayIcon />
-          </TimelineDot>
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent data-aos="fade-left" data-aos-duration="2500">
-          <Paper elevation={3} className={classes.paper}>
-            <Typography variant="h6" component="h1">
-              Paper Submission Deadline
+      {deadlines.map((deadline, index) => (
+        <TimelineItem key={index}>
+          <TimelineOppositeContent>
+            <Typography variant="body2" color="textSecondary">
+              {deadline.date.toLocaleDateString()}
             </Typography>
-            <Typography> </Typography>
-          </Paper>
-        </TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineOppositeContent>
-          <Typography variant="body2" color="textSecondary">
-          Nov 30th, 2023
-          </Typography>
-        </TimelineOppositeContent>
-        <TimelineSeparator>
-          <TimelineDot color="black">
-            <EditCalendarIcon />
-          </TimelineDot>
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent data-aos="fade-left" data-aos-duration="2500">
-          <Paper elevation={3} className={classes.paper}>
-            <Typography variant="h6" component="h1">
-              Acceptance Notification
-            </Typography>
-            <Typography> </Typography>
-          </Paper>
-        </TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineOppositeContent>
-          <Typography variant="body2" color="textSecondary">
-          Dec 10th, 2023
-          </Typography>
-        </TimelineOppositeContent>
-        <TimelineSeparator>
-          <TimelineDot color="primary" variant="outlined">
-            <EventIcon />
-          </TimelineDot>
-          <TimelineConnector className={classes.secondaryTail} />
-        </TimelineSeparator>
-        <TimelineContent data-aos="fade-left" data-aos-duration="2500">
-          <Paper elevation={3} className={classes.paper}>
-            <Typography variant="h6" component="h1">
-              Registration Deadline
-            </Typography>
-            <Typography> </Typography>
-          </Paper>
-        </TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-      <TimelineOppositeContent>
-          <Typography variant="body2" color="textSecondary">
-          Dec 15th, 2023
-          </Typography>
-        </TimelineOppositeContent>
-        <TimelineSeparator>
-          <TimelineDot color="secondary">
-            <EventNoteIcon />
-          </TimelineDot>
-        </TimelineSeparator>
-        <TimelineContent data-aos="fade-left" data-aos-duration="2500">
-          <Paper elevation={3} className={classes.paper}>
-            <Typography variant="h6" component="h1">
-              Conference Dates
-            </Typography>
-            <Typography> </Typography>
-          </Paper>
-        </TimelineContent>
-      </TimelineItem>
+          </TimelineOppositeContent>
+          <TimelineSeparator>
+            <TimelineDot color={deadline.completed ? "grey" : "primary"} variant={deadline.completed ? "outlined" : "standard"}>
+              {index === 0 ? <CalendarTodayIcon /> : index === 1 ? <EditCalendarIcon /> : index === 2 ? <EventIcon /> : <EventNoteIcon />}
+            </TimelineDot>
+            {index < deadlines.length - 1 && <TimelineConnector />}
+          </TimelineSeparator>
+          <TimelineContent data-aos="fade-left" data-aos-duration="2500">
+            <Paper elevation={3} className={`${classes.paper} ${deadline.completed ? classes.completed : ''}`}>
+              <Typography variant="h6" component="h1">
+                {deadline.label}
+              </Typography>
+              <Typography> </Typography>
+            </Paper>
+          </TimelineContent>
+        </TimelineItem>
+      ))}
     </Timeline>
   );
 }
