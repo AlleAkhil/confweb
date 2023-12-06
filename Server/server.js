@@ -3,7 +3,8 @@ const app = express();
 const cors = require('cors');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const pagesRouter = require('./routes/pages'); 
+const contactRouter = require('./routes/contact');
+const paperRouter = require('./routes/paper');
 
 dotenv.config();
 const url = process.env.MONGO_URI;
@@ -17,7 +18,8 @@ con.on('open', () => {
 app.use(cors());
 app.use(express.json());
 
-app.use('/api', pagesRouter); 
+app.use('/api', contactRouter);
+app.use('/api', paperRouter);
 
 app.listen(9000, () => {
     console.log("Connected to port 9000");
